@@ -1,6 +1,7 @@
 class User::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
     gon.post = @post
   end
 
@@ -27,6 +28,7 @@ class User::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
     if @post.save
       redirect_to posts_path
     else

@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
 
-
   scope module: :user do
+
+    get 'users/my_page' => "users#show"
+    resources :users, only: [:update, :edit]
+
     root to: 'homes#top'
     get 'homes/about'
-    resources :posts
+
+    resources :posts do
+      resources :comments, only: [:create, :destroy]
+      resource :bookmarks, only: [:create, :destroy]
+    end
   end
   devise_for :users, controllers: {
     registrations: 'user/registrations',

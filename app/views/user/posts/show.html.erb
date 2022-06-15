@@ -1,14 +1,45 @@
 
-  <p>画像</p>
+<p>画像</p>
   <%= image_tag @post.image, size: "200x200" %>
-  <p>ジム名</p>
+<p>ジム名</p>
   <%= @post.name %>
-  <p>住所</p>
+<p>住所</p>
   <%= @post.address %>
-  <P>紹介文</P>
+<P>紹介文</P>
   <%= @post.introduction %>
-  <%= link_to "編集", edit_post_path %>
-  <%= link_to "削除", @post, method: :delete, data: { confirm: '本当に消しますか？' } %>
+<%= link_to "編集", edit_post_path %>
+<%= link_to "削除", @post, method: :delete, data: { confirm: '本当に消しますか？' } %>
+<table>
+  <tbody>
+    <tr>
+      <td><%= @post.name %></td>
+      <% if @post.bookmarked_by?(current_user) %>
+        <td><%= link_to "ブックマークを外す", post_bookmarks_path(@post), method: :delete %></td>
+      <% else %>
+        <td><%= link_to "ブックマーク", post_bookmarks_path(@post), method: :post %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <% @post.comments.each do |comment| %>
+      <tr>
+        <td><%= comment.user.name %></td>
+        <td><%= comment.comment %></td>
+        <td>
+          <% if comment.user == current_user %>
+            <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に消しますか？' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= form_with(model:[@post, @comment], local: true) do |f| %>
+  <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに", class: "w-100" %>
+  <%= f.submit "送信する", class: "btn btn-success mt-20 pull-right" %>
+<% end %>
 <div id="map"></div>
 
 

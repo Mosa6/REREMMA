@@ -1,5 +1,5 @@
 <h1>新規投稿</h1>
-<%= form_with(model: @post, url: posts_path, local: true) do |f| %>
+<%= form_with model: @post, local: true do |f| %>
   <div class="actions">
     <%= f.label :image,"画像" %>
     <%= f.file_field :image, accept: "image/*" %>
