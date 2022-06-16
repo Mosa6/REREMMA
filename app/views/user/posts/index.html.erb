@@ -1,0 +1,73 @@
+<h1>User::Posts#index</h1>
+<p>Find me in app/views/user/posts/index.html.erb</p>
+<%= link_to "新規投稿", new_post_path %>
+<% @posts.each do |post| %>
+  <p>画像</p>
+  <%= image_tag post.image, size: "200x200" %>
+  <p>ジム名</p>
+  <%= post.name %>
+  <p>住所</p>
+  <%= post.address %>
+  <P>紹介文</P>
+  <%= post.introduction %>
+  <%= link_to "詳細へ", post_path(post.id) %>
+<% end %>
+
+<div id="map"></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 100%;
+}
+</style>
+
+<!-- js部分 -->
+<script>
+    function initMap() {
+
+      //初期表示位置
+      let latlng = new google.maps.LatLng(38.60, 139.5);
+      //デザイン
+      let styles = [
+           {
+            stylers: [
+             { "saturation": 0 },
+             { "lightness": 0 }
+            ]
+           }
+          ];
+
+      let map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5.5,
+          styles: styles,
+          center: latlng
+      });
+      let transitLayer = new google.maps.TransitLayer();
+      transitLayer.setMap(map);
+
+      //複数マーカー ここから
+      <% @posts.each do |post|%>
+        ( function() {
+          let markerLatLng = new google.maps.LatLng({lat: <%= post.latitude %>, lng: <%= post.longitude %>}); // 緯度経度のデータ作成
+          let marker = new google.maps.Marker({
+            position: markerLatLng,
+            map: map
+          });
+    　　　//マーカーをクリックしたとき、詳細情報を表示
+          let infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "<a href='<%= post_url(post.id) %>' target='_blank'><%= post.introduction %></a>"
+          }); //ここで詳細ページへのリンクを表示させる
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+       })();
+      <% end %>
+      //複数マーカー ここまで
+  }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_API'] %>&callback=initMap">
+</script>

@@ -1,0 +1,14 @@
+<h1>新規投稿</h1>
+<%= form_with model: @post, local: true do |f| %>
+  <div class="actions">
+    <%= f.label :image,"画像" %>
+    <%= f.file_field :image, accept: "image/*" %>
+    <%= f.label :name, "ジム名" %>
+    <%= f.text_field :name %>
+    <%= f.label :address, "住所" %>
+    <%= f.text_field :address %>
+    <%= f.label :introduction, "紹介文" %>
+    <%= f.text_field :introduction %>
+    <%= f.submit %>
+  </div>
+<% end %>

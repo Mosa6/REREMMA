@@ -1,0 +1,24 @@
+<p>ユーザー名</p>
+<%= @user.name %>
+<%= link_to "編集", edit_user_path(@user.id) %>
+<table>
+  <h4>ブックマーク一覧</h4>
+  <thead>
+    <tr>
+      <th>投稿者名</th>
+      <th>ジム名</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bookmarks.each do |bookmark| %>
+      <tr>
+        <td><%= bookmark.post.user.name %></td>
+        <td>
+          <%= link_to post_path(bookmark.post) do %>
+            <%= bookmark.post.name %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
