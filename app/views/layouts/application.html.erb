@@ -23,6 +23,13 @@
         <li>
           <%= link_to "投稿一覧", posts_path %>
         </li>
+      <% elsif admin_signed_in? %>
+        <li>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+        </li>
+        <li>
+          <%= link_to "投稿一覧", admin_posts_path %>
+        </li>
       <% else %>
         <li>
           <%= link_to "新規登録", new_user_registration_path %>

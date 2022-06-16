@@ -8,7 +8,7 @@
 <P>紹介文</P>
   <%= @post.introduction %>
 <%= link_to "編集", edit_post_path %>
-<%= link_to "削除", @post, method: :delete, data: { confirm: '本当に消しますか？' } %>
+<%= link_to "削除", post_path, method: :delete, data: { confirm: '本当に消しますか？' } %>
 <table>
   <tbody>
     <tr>

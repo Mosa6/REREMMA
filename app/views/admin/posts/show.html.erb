@@ -1,0 +1,11 @@
+
+<p>画像</p>
+  <%= image_tag @post.image, size: "200x200" %>
+<p>ジム名</p>
+  <%= @post.name %>
+<p>住所</p>
+  <%= @post.address %>
+<P>紹介文</P>
+  <%= @post.introduction %>
+<%= link_to "削除", admin_post_path, method: :delete, data: { confirm: '本当に消しますか？' } %>
+<p>Find me in app/views/admin/posts/show.html.erb</p>
