@@ -1,0 +1,11 @@
+<% @posts.each do |post| %>
+  <p>画像</p>
+  <%= image_tag post.image, size: "200x200" %>
+  <p>ジム名</p>
+  <%= post.name %>
+  <p>住所</p>
+  <%= post.address %>
+  <P>紹介文</P>
+  <%= post.introduction %>
+  <%= link_to "詳細へ", post_path(post.id) %>
+<% end %>

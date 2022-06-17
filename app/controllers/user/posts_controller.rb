@@ -41,6 +41,16 @@ class User::PostsController < ApplicationController
     post.destroy
     redirect_to posts_path
   end
+  
+  def search
+    @section_title = "「#{params[:search]}」の検索結果"
+    @posts = if params[:search].present?
+      Post.where(['name LIKE ? OR address LIKE ?',
+                  "%#{params[:search]}%", "%#{params[:search]}%"])
+            else
+              Post.none
+           end
+  end
 
   private
 

@@ -21,25 +21,11 @@
     </tr>
   </tbody>
 </table>
-<table>
-  <tbody>
-    <% @post.comments.each do |comment| %>
-      <tr>
-        <td><%= comment.user.name %></td>
-        <td><%= comment.comment %></td>
-        <td>
-          <% if comment.user == current_user %>
-            <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に消しますか？' } %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= form_with(model:[@post, @comment], local: true) do |f| %>
-  <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに", class: "w-100" %>
-  <%= f.submit "送信する", class: "btn btn-success mt-20 pull-right" %>
-<% end %>
+<div class="new-comment">
+  <%= render 'user/comments/post_comments', post: @post %>
+</div>
+  <%= render 'user/comments/form', post: @post, comment: @comment %>
+
 <div id="map"></div>
 
 

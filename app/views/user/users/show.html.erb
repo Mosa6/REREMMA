@@ -1,6 +1,8 @@
 <p>ユーザー名</p>
 <%= @user.name %>
-<%= link_to "編集", edit_user_path(@user.id) %>
+<% if @user.name != "guestuser" %>
+  <%= link_to "編集", edit_user_path(@user.id) %>
+<% end %>
 <table>
   <h4>ブックマーク一覧</h4>
   <thead>
