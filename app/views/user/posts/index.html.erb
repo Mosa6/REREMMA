@@ -1,17 +1,45 @@
-<h1>User::Posts#index</h1>
-<p>Find me in app/views/user/posts/index.html.erb</p>
-<%= link_to "新規投稿", new_post_path %>
-<% @posts.each do |post| %>
-  <p>画像</p>
-  <%= image_tag post.image, size: "200x200" %>
-  <p>ジム名</p>
-  <%= post.name %>
-  <p>住所</p>
-  <%= post.address %>
-  <P>紹介文</P>
-  <%= post.introduction %>
-  <%= link_to "詳細へ", post_path(post.id) %>
-<% end %>
+<div class="container">
+  <div class="row col-11">
+    <h2>投稿一覧</h2>
+    <div class="ml-auto col-5">
+      <%= link_to "新規投稿", new_post_path, class: "text-dark" %>
+    </div>
+  </div>
+  <div class="row col-12">
+    <table class="table-secondary">
+      <thead>
+        <tr class="table-secondary">
+          <th>ジム名</th>
+          <th>住所</th>
+          <th>評価</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+        <tr>
+          <td class="pr-5"><%= post.name %></td>
+          <td class="pr-5"><%= post.address %></td>
+          <td class="pr-5" id="star-rate-<%= post.id %>"></td>
+          <script>
+          $('#star-rate-<%= post.id %>').empty();
+          $('#star-rate-<%= post.id %>').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: <%= post.rate %>,
+          });
+          </script>
+          <td class="pr-2"><%= link_to "詳細", post_path(post.id) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 <div id="map"></div>
 
@@ -69,5 +97,4 @@
   }
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_API'] %>&callback=initMap">
-</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_API'] %>&callback=initMap"></script>

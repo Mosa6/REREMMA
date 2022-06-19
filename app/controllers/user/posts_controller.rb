@@ -47,7 +47,7 @@ class User::PostsController < ApplicationController
     @posts = if params[:search].present?
       Post.where(['name LIKE ? OR address LIKE ?',
                   "%#{params[:search]}%", "%#{params[:search]}%"])
-            else
+           else
               Post.none
            end
   end
@@ -55,6 +55,6 @@ class User::PostsController < ApplicationController
   private
 
   def post_params
-      params.require(:post).permit(:name, :latitude, :longitude, :introduction, :address, :image)
+    params.require(:post).permit(:name, :latitude, :longitude, :introduction, :address, :image, :rate)
   end
 end

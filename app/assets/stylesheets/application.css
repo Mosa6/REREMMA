@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+header {
+  background-color: #111111;
+}
+
+footer {
+  background-color: #111111;
+}

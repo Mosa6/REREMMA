@@ -1,15 +1,19 @@
-<table>
-  <tbody>
-    <% post.comments.each do |comment| %>
-      <tr>
-        <td><%= comment.user.name %></td>
-        <td><%= comment.comment %></td>
-        <td>
+<div class="container">
+  <div class="row">
+    <table class="table-secondary">
+      <tbody>
+      <% post.comments.each do |comment| %>
+        <tr class="table-secondary">
+          <td class="px-5"><%= comment.user.name %></td>
+          <td class="pr-5"><%= comment.comment %></td>
+          <td class="pr-5">
            <% if comment.user == current_user %>
              <%= link_to "削除", post_comment_path(post, comment), method: :delete, remote: true, data: { confirm: '本当に消しますか？' } %>
            <% end %>
-        </td>
-      </tr>
-     <% end %>
-  </tbody>
-</table>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

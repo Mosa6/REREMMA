@@ -7,44 +7,19 @@
     <%= csp_meta_tag %>
     <%= include_gon %>
 
+    <%= stylesheet_link_tag 'application', :media => 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-      <% if user_signed_in? %>
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
-        <li>
-          <%= link_to "マイページ", users_my_page_path %>
-        </li>
-        <li>
-          <%= link_to "投稿一覧", posts_path %>
-        </li>
-      <% elsif admin_signed_in? %>
-        <li>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-        </li>
-        <li>
-          <%= link_to "投稿一覧", admin_posts_path %>
-        </li>
-      <% else %>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-      <% end %>
+      <%= render 'layouts/header' %>
     </header>
-    <div class="post_search">
-  　　<%= form_with url: search_posts_path, method: :get, local: true do |f| %>
-        <%= f.text_field :search, class: 'form-control', placeholder: "キーワード検索"  %>
-        <%= f.submit "検索" %>
-      <% end %>
-    </div>
     <%= yield %>
+    <footer class="mt-3">
+      <%= render 'layouts/footer' %>
+    </footer>
   </body>
 </html>

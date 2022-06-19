@@ -1,30 +1,69 @@
-
-<p>画像</p>
-  <%= image_tag @post.image, size: "200x200" %>
-<p>ジム名</p>
-  <%= @post.name %>
-<p>住所</p>
-  <%= @post.address %>
-<P>紹介文</P>
-  <%= @post.introduction %>
-<%= link_to "編集", edit_post_path %>
-<%= link_to "削除", post_path, method: :delete, data: { confirm: '本当に消しますか？' } %>
-<table>
-  <tbody>
-    <tr>
-      <td><%= @post.name %></td>
-      <td class=<%= "bookmark-" + @post.id.to_s %> >
+<div class="container">
+  <div class="row">
+    <h2>投稿詳細</h2>
+    <div class="ml-auto col-5">
+      <div class=<%= "bookmark-" + @post.id.to_s %>>
         <%= render "user/bookmarks/btn", post: @post %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-2 offset-1">
+    <%= image_tag @post.image, size: "300x300" %>
+  </div>
+  <div class="col-6 offset-2">
+    <table class="table ">
+      <tbody>
+        <tr>
+          <td><h6>ジム名</h6></td>
+          <td><%= @post.name %></td>
+        </tr>
+        <tr>
+          <td><h6>住所</h6></td>
+          <td><%= @post.address %></td>
+        </tr>
+        <tr>
+          <td><h6>紹介文</h6></td>
+          <td><%= @post.introduction %></td>
+        </tr>
+        <tr>
+          <td><h6>評価</h6></td>
+          <td id="star-rate-<%= @post.id %>"></td>
+          <script>
+          $('#star-rate-<%= @post.id %>').empty();
+          $('#star-rate-<%= @post.id %>').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: <%= @post.rate %>,
+          });
+          </script>
+        </tr>
+        <tr>
+          <td><%= link_to "編集", edit_post_path, class: 'btn btn-success' %></td>
+          <td><%= link_to "削除", post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 <div class="new-comment">
   <%= render 'user/comments/post_comments', post: @post %>
 </div>
-  <%= render 'user/comments/form', post: @post, comment: @comment %>
+<%= render 'user/comments/form', post: @post, comment: @comment %>
 
 <div id="map"></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 100%;
+}
+</style>
 
 
 <script>
