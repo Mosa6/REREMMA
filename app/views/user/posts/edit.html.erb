@@ -1,25 +1,60 @@
-<h1>投稿編集</h1>
-<%= form_with(model: @post, url: post_path, local: true) do |f| %>
-  <%= f.label :image,"画像" %>
-  <%= f.file_field :image, accept: "image/*" %>
-  <%= f.label :name, "ジム名" %>
-  <%= f.text_field :name %>
-  <%= f.label :address, "住所" %>
-  <%= f.text_field :address %>
-  <%= f.label :introduction, "紹介文" %>
-  <%= f.text_field :introduction %>
-    <div class="field" id="star">
-      <%= f.label :rate,  "星評価 (※必須)" ,id: "e"%>
-      <%= f.hidden_field :rate, id: :review_star %>
-    </div>
-    <script>
+<div class="container">
+  <div class="row ">
+    <h2>投稿編集</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+    <%= render "layouts/errors", obj: @post %>
+    <%= form_with model: @post, local: true do |f| %>
+      <div class="form-group row">
+        <%= f.label :image, "ジム画像", class: "col-sm-3 col-form-label" %>
+        <div class="col-md-9">
+          <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :image, "ジム名", class: "col-sm-3 col-form-label" %>
+        <div class="col-md-9">
+          <%= f.text_field :name, placeholder: "ジム名", class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :address, "住所", class: "col-sm-3 col-form-label" %>
+        <div class="col-md-9">
+          <%= f.text_field :address, placeholder: "東京都渋谷区佐々木神園町-00", class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :introduction, "紹介文", class: "col-sm-3 col-form-label" %>
+        <div class="col-md-9">
+          <%= f.text_area :introduction, size: "200x5", placeholder: "紹介文をここに", class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :rate, "評価", class: "col-sm-3 col-form-label" %>
+        <div class="col-md-9" id="star">
+          <%= f.hidden_field :rate, id: :review_star %>
+        </div>
+      </div>
+      <script>
+      $(document).on("turbolinks:load", function() {
+      　$('#star').empty();
         $('#star').raty({
-            size     : 36,
-            starOff:  '<%= asset_path('star-off.png') %>',
-            starOn : '<%= asset_path('star-on.png') %>',
-            starHalf: '<%= asset_path('star-half.png') %>',
-            scoreName: 'post[rate]',
+          size     : 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          scoreName: 'post[rate]',
+          half: true,
         });
-    </script>
-  <%= f.submit "編集内容を保存" %>
-<% end %>
+      })
+      </script>
+      <div class="form-group" align="center">
+        <%= f.submit "編集内容を保存", class: 'btn btn-success' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+

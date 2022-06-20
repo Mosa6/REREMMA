@@ -58,6 +58,7 @@ gem 'devise'
 gem 'gon'
 gem 'geocoder'
 gem 'dotenv-rails'
+gem 'kaminari'
 
 group :production do
   gem 'mysql2'

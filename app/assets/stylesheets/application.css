@@ -20,3 +20,18 @@ header {
 footer {
   background-color: #111111;
 }
+
+.show-img {
+  width: 300px;
+  height: auto;
+}
+
+/* エラーメッセージ表示時のレイアウトの崩れを抑える */
+.field_with_errors {
+  display: contents;
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+}

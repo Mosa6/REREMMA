@@ -5,7 +5,9 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
-  
+
+  validates :name, :introduction, :address, :rate, :image, presence: true
+
   #bookmarked_by?(user)を追加することで、既にブックマークしているかを検証
   def bookmarked_by?(user)
     bookmarks.where(user_id: user).exists?

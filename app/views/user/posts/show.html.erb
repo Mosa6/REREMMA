@@ -7,48 +7,48 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-2 offset-1">
-    <%= image_tag @post.image, size: "300x300" %>
-  </div>
-  <div class="col-6 offset-2">
-    <table class="table ">
-      <tbody>
-        <tr>
-          <td><h6>ジム名</h6></td>
-          <td><%= @post.name %></td>
-        </tr>
-        <tr>
-          <td><h6>住所</h6></td>
-          <td><%= @post.address %></td>
-        </tr>
-        <tr>
-          <td><h6>紹介文</h6></td>
-          <td><%= @post.introduction %></td>
-        </tr>
-        <tr>
-          <td><h6>評価</h6></td>
-          <td id="star-rate-<%= @post.id %>"></td>
-          <script>
-          $('#star-rate-<%= @post.id %>').empty();
-          $('#star-rate-<%= @post.id %>').raty({
-            size: 36,
-            starOff:  '<%= asset_path('star-off.png') %>',
-            starOn : '<%= asset_path('star-on.png') %>',
-            starHalf: '<%= asset_path('star-half.png') %>',
-            half: true,
-            readOnly: true,
-            score: <%= @post.rate %>,
-          });
-          </script>
-        </tr>
-        <tr>
-          <td><%= link_to "編集", edit_post_path, class: 'btn btn-success' %></td>
-          <td><%= link_to "削除", post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-4 offset-1">
+      <%= image_tag @post.image, class: "show-img" %>
+    </div>
+    <div class="col-5 offset-2">
+      <table class="table ">
+        <tbody>
+          <tr>
+            <td><h6>ジム名</h6></td>
+            <td><%= @post.name %></td>
+          </tr>
+          <tr>
+            <td><h6>住所</h6></td>
+            <td><%= @post.address %></td>
+          </tr>
+          <tr>
+            <td><h6>紹介文</h6></td>
+            <td><%= safe_join(@post.introduction.split("\n"),tag(:br)) %></td>
+          </tr>
+          <tr>
+            <td><h6>評価</h6></td>
+            <td id="star-rate-<%= @post.id %>"></td>
+            <script>
+            $('#star-rate-<%= @post.id %>').empty();
+            $('#star-rate-<%= @post.id %>').raty({
+              size: 36,
+              starOff:  '<%= asset_path('star-off.png') %>',
+              starOn : '<%= asset_path('star-on.png') %>',
+              starHalf: '<%= asset_path('star-half.png') %>',
+              half: true,
+              readOnly: true,
+              score: <%= @post.rate %>,
+            });
+            </script>
+          </tr>
+          <tr>
+            <td><%= link_to "編集", edit_post_path, class: 'btn btn-success' %></td>
+            <td><%= link_to "削除", post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 <div class="new-comment">
@@ -58,14 +58,6 @@
 
 <div id="map"></div>
 
-<style>
-#map {
-  height: 600px;
-  width: 100%;
-}
-</style>
-
-
 <script>
   let map;
 
@@ -74,12 +66,10 @@
     geocoder = new google.maps.Geocoder()
 
     map = new google.maps.Map(document.getElementById('map'), {
-      // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
       center: {
         lat: gon.post.latitude,
         lng: gon.post.longitude
       },
-      // マップの倍率はお好みで
       zoom: 17,
     });
 

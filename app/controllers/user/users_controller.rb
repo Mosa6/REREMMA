@@ -5,6 +5,7 @@ class User::UsersController < ApplicationController
   def show
     @user = current_user
     @bookmarks = Bookmark.where(user_id: current_user.id)
+    @bookmarks = Bookmark.page(params[:page])
   end
 
   def edit

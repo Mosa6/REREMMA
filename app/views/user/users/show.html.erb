@@ -1,26 +1,58 @@
-<p>ユーザー名</p>
-<%= @user.name %>
-<% if @user.name != "guestuser" %>
-  <%= link_to "編集", edit_user_path(@user.id) %>
-<% end %>
-<table>
-  <h4>ブックマーク一覧</h4>
-  <thead>
-    <tr>
-      <th>投稿者名</th>
-      <th>ジム名</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @bookmarks.each do |bookmark| %>
-      <tr>
-        <td><%= bookmark.post.user.name %></td>
-        <td>
-          <%= link_to post_path(bookmark.post) do %>
-            <%= bookmark.post.name %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row mb-2">
+    <h2>マイページ</h2>
+  </div>
+  <div class="row">
+    <table class="table border-bottom table-hover table-background">
+      <thead>
+        <tr>
+          <th>ユーザー名</th>
+          <th>メールアドレス</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pr-5"><%= @user.name %></td>
+          <td class="pr-5"><%= @user.email %></td>
+          <td class="pr-5">
+            <% if @user.name != "guestuser" %>
+              <%= link_to "編集", edit_user_path(@user.id) %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="container">
+  <div class="row mt-5">
+    <h3>ブックマーク一覧</h3>
+  </div>
+  <div class="row">
+    <table class="table border-bottom table-hover table-background">
+      <thead>
+        <tr>
+          <th>投稿者名</th>
+          <th>ジム名</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @bookmarks.each do |bookmark| %>
+        <tr>
+          <td class="pr-5"><%= bookmark.post.user.name %></td>
+          <td class="pr-5">
+            <%= link_to post_path(bookmark.post) do %>
+              <%= bookmark.post.name %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <%= paginate @bookmarks %>
+</div>
