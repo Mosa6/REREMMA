@@ -1,0 +1,55 @@
+<header class="shadow-sm p-3 mb-5 bg-body rounded">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand", href="/">
+        <h3 class="text-danger">REREMMA</h3>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon "></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto d-block justify-content-end">
+          <% if user_signed_in? %>
+            <li class="d-inline-block">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+            <li class="d-inline-block">
+              <%= link_to "マイページ", users_my_page_path, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+            <li class="d-inline-block">
+               <%= link_to "投稿一覧", posts_path, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+          <% elsif admin_signed_in? %>
+            <li class="d-inline-block">
+               <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+            <li class="d-inline-block">
+               <%= link_to "投稿一覧", admin_posts_path, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+            <li class="d-inline-block">
+              <%= link_to "管理者トップ", admin_path, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+          <% else %>
+            <li class="d-inline-block">
+               <%= link_to "新規登録", new_user_registration_path, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+            <li class="d-inline-block">
+               <%= link_to "ログイン", new_user_session_path, class: "text-light border m-1 p-3 rounded font-weight-bold" %>
+            </li>
+            <li class="d-inline-block">
+              <%= link_to "ゲストログイン", users_guest_sign_in_path, class: "text-light border m-1 p-3 rounded font-weight-bold", method: :post %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="post_search">
+          <% if user_signed_in? %>
+          <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
+            <%= f.text_field :search, class: "m-1 p-3 form-control", placeholder: "キーワード検索"  %>
+            <%= f.submit "検索", class: "m-1 form-control" %>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

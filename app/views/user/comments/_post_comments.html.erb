@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row col-7">
+    <h5>コメント</h5>
+    <table class="table-secondary table table-inverse">
+      <tbody>
+      <% post.comments.each do |comment| %>
+        <tr class="table-secondary">
+          <td class="px-5"><%= comment.user.name %></td>
+          <td class="pr-5"><%= safe_join(comment.comment.split("\n"),tag(:br)) %></td>
+          <td class="pr-5">
+           <% if comment.user == current_user %>
+             <%= link_to post_comment_path(post, comment), method: :delete, remote: true, data: { confirm: '本当に消しますか？' }, class: 'text-danger' do %>
+               <i class="fas fa-trash-alt"></i>
+             <% end %>
+           <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

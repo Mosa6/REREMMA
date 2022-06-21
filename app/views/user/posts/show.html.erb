@@ -1,47 +1,64 @@
-
-<p>画像</p>
-  <%= image_tag @post.image, size: "200x200" %>
-<p>ジム名</p>
-  <%= @post.name %>
-<p>住所</p>
-  <%= @post.address %>
-<P>紹介文</P>
-  <%= @post.introduction %>
-<%= link_to "編集", edit_post_path %>
-<%= link_to "削除", @post, method: :delete, data: { confirm: '本当に消しますか？' } %>
-<table>
-  <tbody>
-    <tr>
-      <td><%= @post.name %></td>
-      <% if @post.bookmarked_by?(current_user) %>
-        <td><%= link_to "ブックマークを外す", post_bookmarks_path(@post), method: :delete %></td>
-      <% else %>
-        <td><%= link_to "ブックマーク", post_bookmarks_path(@post), method: :post %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <% @post.comments.each do |comment| %>
-      <tr>
-        <td><%= comment.user.name %></td>
-        <td><%= comment.comment %></td>
-        <td>
-          <% if comment.user == current_user %>
-            <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に消しますか？' } %>
+<div class="container">
+  <div class="row">
+    <h2>投稿詳細</h2>
+    <div class="ml-auto col-5">
+      <div class=<%= "bookmark-" + @post.id.to_s %>>
+        <%= render "user/bookmarks/btn", post: @post %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 offset-1">
+      <%= image_tag @post.image, class: "show-img" %>
+    </div>
+    <div class="col-5 offset-2">
+      <table class="table ">
+        <tbody>
+          <tr>
+            <td><h6>ジム名</h6></td>
+            <td><%= @post.name %></td>
+          </tr>
+          <tr>
+            <td><h6>住所</h6></td>
+            <td><%= @post.address %></td>
+          </tr>
+          <tr>
+            <td><h6>紹介文</h6></td>
+            <td><%= safe_join(@post.introduction.split("\n"),tag(:br)) %></td>
+          </tr>
+          <tr>
+            <td><h6>評価</h6></td>
+            <td id="star-rate-<%= @post.id %>"></td>
+            <script>
+            $('#star-rate-<%= @post.id %>').empty();
+            $('#star-rate-<%= @post.id %>').raty({
+              size: 36,
+              starOff:  '<%= asset_path('star-off.png') %>',
+              starOn : '<%= asset_path('star-on.png') %>',
+              starHalf: '<%= asset_path('star-half.png') %>',
+              half: true,
+              readOnly: true,
+              score: <%= @post.rate %>,
+            });
+            </script>
+          </tr>
+          <tr>
+          <% if @post.user == current_user %>
+            <td><%= link_to "編集", edit_post_path, class: 'btn btn-success' %></td>
+            <td><%= link_to "削除", post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %></td>
           <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= form_with(model:[@post, @comment], local: true) do |f| %>
-  <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに", class: "w-100" %>
-  <%= f.submit "送信する", class: "btn btn-success mt-20 pull-right" %>
-<% end %>
-<div id="map"></div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="new-comment">
+  <%= render 'user/comments/post_comments', post: @post %>
+</div>
+<%= render 'user/comments/form', post: @post, comment: @comment %>
 
+<div id="map"></div>
 
 <script>
   let map;
@@ -51,12 +68,10 @@
     geocoder = new google.maps.Geocoder()
 
     map = new google.maps.Map(document.getElementById('map'), {
-      // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
       center: {
         lat: gon.post.latitude,
         lng: gon.post.longitude
       },
-      // マップの倍率はお好みで
       zoom: 17,
     });
 
