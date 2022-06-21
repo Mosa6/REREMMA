@@ -105,6 +105,18 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -121,14 +133,14 @@ GEM
     minitest (5.15.0)
     msgpack (1.5.2)
     multi_json (1.15.0)
+    mysql2 (0.5.4)
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     public_suffix (4.0.7)
-    puma (5.6.4)
-      nio4r (~> 2.0)
+    puma (3.12.6)
     racc (1.6.0)
     rack (2.2.3.1)
     rack-mini-profiler (2.3.4)
@@ -241,8 +253,10 @@ DEPENDENCIES
   geocoder
   gon
   jbuilder (~> 2.7)
+  kaminari
   listen (~> 3.3)
-  puma (~> 5.0)
+  mysql2
+  puma (~> 3.11)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.6)
   sass-rails (>= 6)

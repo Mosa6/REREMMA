@@ -1,0 +1,48 @@
+<div class="container">
+　<div class="row mb-3 ml-5">
+    <h2><%= @post.user.name %>さんの投稿詳細</h2>
+  </div>
+  <div class="row">
+    <div class="col-4 offset-1">
+      <%= image_tag @post.image, class: "show-img" %>
+    </div>
+    <div class="col-5 offset-2">
+      <table class="table ">
+        <tbody>
+          <tr>
+            <td><h6>ジム名</h6></td>
+            <td><%= @post.name %></td>
+          </tr>
+          <tr>
+            <td><h6>住所</h6></td>
+            <td><%= @post.address %></td>
+          </tr>
+          <tr>
+            <td><h6>紹介文</h6></td>
+            <td><%= safe_join(@post.introduction.split("\n"),tag(:br)) %></td>
+          </tr>
+          <tr>
+            <td><h6>評価</h6></td>
+            <td id="star-rate-<%= @post.id %>"></td>
+            <script>
+            $('#star-rate-<%= @post.id %>').empty();
+            $('#star-rate-<%= @post.id %>').raty({
+              size: 36,
+              starOff:  '<%= asset_path('star-off.png') %>',
+              starOn : '<%= asset_path('star-on.png') %>',
+              starHalf: '<%= asset_path('star-half.png') %>',
+              half: true,
+              readOnly: true,
+              score: <%= @post.rate %>,
+            });
+            </script>
+          </tr>
+          <tr>
+            <td><%= link_to "削除", admin_post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: 'text-danger' %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
