@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     resources :users, only: [:update, :edit]
 
     root to: 'homes#top'
-    get 'homes/about'
 
     resources :posts, only: [:new, :show, :index, :edit, :update, :destroy, :create] do
       get :search, on: :collection

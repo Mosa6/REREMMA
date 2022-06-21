@@ -1,7 +1,11 @@
 class User::PostsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :correct_user, only: [:edit, :destroy, :update]
+
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
+    @user = @post.user
     gon.post = @post
   end
 
@@ -47,9 +51,9 @@ class User::PostsController < ApplicationController
     @posts = if params[:search].present?
       Post.where(['name LIKE ? OR address LIKE ?',
                   "%#{params[:search]}%", "%#{params[:search]}%"])
-           else
-              Post.none
-           end
+             else
+                Post.none
+             end
   end
 
   private
@@ -57,4 +61,11 @@ class User::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:name, :latitude, :longitude, :introduction, :address, :image, :rate)
   end
+
+  def correct_user
+    @post = Post.find(params[:id])
+    @user = @post.user
+    redirect_to(posts_path) unless @user == current_user
+  end
+
 end

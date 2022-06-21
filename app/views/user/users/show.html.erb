@@ -12,14 +12,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr onclick='window.location="<%= '/users/'+ @user.id.to_s + '/edit' %>"' role="link">
           <td class="pr-5"><%= @user.name %></td>
           <td class="pr-5"><%= @user.email %></td>
-          <td class="pr-5">
-            <% if @user.name != "guestuser" %>
-              <%= link_to "編集", edit_user_path(@user.id) %>
-            <% end %>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -39,7 +34,7 @@
       </thead>
       <tbody>
         <% @bookmarks.each do |bookmark| %>
-        <tr>
+        <tr onclick='window.location="<%= '/posts/' + bookmark.post.id.to_s %>"' role="link">
           <td class="pr-5"><%= bookmark.post.user.name %></td>
           <td class="pr-5">
             <%= link_to post_path(bookmark.post) do %>

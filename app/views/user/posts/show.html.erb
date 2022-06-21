@@ -43,8 +43,10 @@
             </script>
           </tr>
           <tr>
+          <% if @post.user == current_user %>
             <td><%= link_to "編集", edit_post_path, class: 'btn btn-success' %></td>
             <td><%= link_to "削除", post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %></td>
+          <% end %>
           </tr>
         </tbody>
       </table>
