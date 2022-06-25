@@ -2,7 +2,10 @@
   <div class="row col-11">
     <h2>投稿一覧</h2>
     <div class="ml-auto col-5">
-      <%= link_to "新規投稿", new_post_path, class: "text-dark" %>
+      <% if user_signed_in? %>
+        <%= link_to "新規投稿", new_post_path, class: "text-dark" %>
+      <% else %>
+      <% end %>
     </div>
   </div>
   <div class="row col-12 mb-3">
