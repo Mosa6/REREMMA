@@ -19,8 +19,8 @@
 - 総合格闘技ジムを検索したいとき
 - 紹介したい総合格闘技ジムがあるとき
 
-## 設計書
-検討中
+## ER図
+![er](https://user-images.githubusercontent.com/101866765/175774676-d6928891-8d70-4cb6-8cf6-faaac16f9398.png)
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -31,5 +31,5 @@
 
 ## 使用素材
 - 外部API(Google MapAPI、Geocoding API)
-- 検討中
+
 
