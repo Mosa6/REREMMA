@@ -1,13 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-    <%= form_with(model:[post, comment], local: false) do |f| %>
-      <div class="form-group row col-12">
-        <%= f.text_area :comment, placeholder: "コメントをここに(50文字以内)", class: "w-100 comment-textarea" %>
-      </div>
-      <div class="form-group">
-        <%= f.submit "送信する" %>
-      </div>
+    <% if user_signed_in? %>
+      <%= form_with(model:[post, comment], local: false) do |f| %>
+        <div class="form-group row col-12">
+          <%= f.text_area :comment, placeholder: "コメントをここに(50文字以内)", class: "w-100 comment-textarea" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "送信する" %>
+        </div>
+      <% end %>
+    <% else %>
     <% end %>
     </div>
   </div>
