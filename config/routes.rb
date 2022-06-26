@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
 
-  devise_for :users, controllers: {
+  devise_for :users, skip: [:passwords], controllers: {
     registrations: 'user/registrations',
     sessions: "user/sessions",
   }
