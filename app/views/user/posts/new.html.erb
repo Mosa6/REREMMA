@@ -37,7 +37,6 @@
         </div>
       </div>
       <script>
-      $(document).on("turbolinks:load", function() {
       　$('#star').empty();
         $('#star').raty({
           size     : 36,
@@ -47,7 +46,6 @@
           scoreName: 'post[rate]',
           half: true,
         });
-      })
       </script>
       <div class="form-group" align="center">
         <%= f.submit "新規登録", class: 'btn btn-success' %>
