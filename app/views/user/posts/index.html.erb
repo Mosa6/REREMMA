@@ -26,14 +26,14 @@
           <td class="pr-5"><%= post.address %></td>
           <td class="pr-5" id="star-rate-<%= post.id %>"></td>
           <script>//星表示
-          $('#star-rate-<%= post.id %>').empty();
+          $('#star-rate-<%= post.id %>').empty();//星の表示バグを解消
           $('#star-rate-<%= post.id %>').raty({
             size: 36,
             starOff:  '<%= asset_path('star-off.png') %>',
             starOn : '<%= asset_path('star-on.png') %>',
             starHalf: '<%= asset_path('star-half.png') %>',
             half: true,
-            readOnly: true,
+            readOnly: true,//カーソルを合わせても星が動かないように
             score: <%= post.rate %>,
           });
           </script>
