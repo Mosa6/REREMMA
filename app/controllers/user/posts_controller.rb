@@ -1,5 +1,5 @@
 class User::PostsController < ApplicationController
-  
+
   before_action :correct_user, only: [:edit, :destroy, :update]
 
   def show
@@ -46,7 +46,7 @@ class User::PostsController < ApplicationController
     redirect_to posts_path
   end
 
-  def search
+  def search #簡易検索機能
     @posts = if params[:search].present?
       Post.where(['name LIKE ? OR address LIKE ?',
                   "%#{params[:search]}%", "%#{params[:search]}%"])#検索ワードの前後に%を置くことで空白文字を含む任意の複数文字列」が検索ワードの前後に含まれてもその文字列を持つレコードを返す
