@@ -30,7 +30,7 @@ class Admin::SessionsController < Devise::SessionsController
     admin_path
   end
 
-  # 管理者のログアウトは不要なので最終消す
+  
   def after_sign_out_path_for(resource)
     new_admin_session_path
   end

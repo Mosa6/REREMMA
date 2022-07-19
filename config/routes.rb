@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+# ユーザー側
   scope module: :user do
 
     get 'users/my_page' => "users#show"
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     sessions: "user/sessions",
   }
 
-
+# 管理者側
   devise_for :admins, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
