@@ -75,12 +75,11 @@
       //複数マーカー ここから
       <% @posts.each do |post|%>
         ( function() {
-          let markerLatLng = new google.maps.LatLng({lat: <%= post.latitude %>, lng: <%= post.longitude %>}); // 緯度経度のデータ作成
+          let markerLatLng = new google.maps.LatLng({lat: <%= post.latitude %>, lng: <%= post.longitude %>});
           let marker = new google.maps.Marker({
             position: markerLatLng,
             map: map
-          });
-        //マーカーをクリックしたとき、投稿情報を表示
+        //マーカーをクリックしたとき、投稿住所を表示
           let infowindow = new google.maps.InfoWindow({
             position: markerLatLng,
             content: "<a href='<%= post_url(post.id) %>' target='_blank'><%= post.address %></a>"
